@@ -14,8 +14,11 @@ int main(int argc, char *argv[]){
 	}
 //	printf("test = %lf\n", euclideanDist(0.5,0.5,0.7,0.2));
 	int n;	
-	int numthreads = atoi(argv[2]);
-	omp_set_num_threads(numthreads);
+	//int numthreads = atoi(argv[2]);
+int j = 0;
+for (j = 2; j<17; j*=2){
+	//omp_set_num_threads(numthreads);
+	omp_set_num_threads(j);
 	if (atoi(argv[1]) == 0)
 		n = INT_MAX;
 	else
@@ -39,7 +42,8 @@ int main(int argc, char *argv[]){
 	printf("hits = %d\n", hits);
 	double pi = 4*((double)hits/(double)n);
 	printf("pi = %.20lf\n",pi );
-	printf("Time for %d loops on %d threads = %.16g\n",n,numthreads,end-start);
+	printf("Time for %d loops on %d threads = %.16g\n",n,j,end-start);
+}
 
 
 
