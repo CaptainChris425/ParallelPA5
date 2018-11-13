@@ -26,14 +26,15 @@ for (j = 1; j<17; j+=1){
 	int hits = 0;
 	int i;
 	//srand(time(0));
-	int seed = 1;
-	double x,y,cx = 0.5 ,cy = 0.5;
 	double start = omp_get_wtime();	
-	#pragma omp parallel for private(x,y) reduction (+:hits)	
+	double x,y,cx = 0.5, cy=0.5;
+	int seed;
+	#pragma omp parallel for private(x,y,seed) reduction (+:hits)	
 	for (i=0;i<n;i++){
+			if(i==0){ int seed = omp_get_thread_num();}
+			seed *= i;
 			x = ((double)(rand_r(&seed)%1000))/1000;
 			y = ((double)(rand_r(&seed)%1000))/1000;
-			seed *= 2;
 		//	printf("(%lf,%lf)\n", x,y);
 		//	printf("dist = %lf\n", euclideanDist(cx,cy,x,y));
 			if (euclideanDist(cx,cy,x,y) < 0.5){
